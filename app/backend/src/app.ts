@@ -1,5 +1,11 @@
 import * as express from 'express';
 
+/* const factory = () => {
+  const entidade = new Entidade()
+  const service = new Service(entidade)
+  const controller = new Controlle(service)
+} */
+
 class App {
   public app: express.Express;
 
@@ -25,6 +31,7 @@ class App {
   }
 
   public start(PORT: string | number):void {
+    // this.app.get(req, res) => {}
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
   }
 }
