@@ -1,7 +1,7 @@
 import UsersModel from '../models/UsersModel';
 import { IModel } from '../interfaces';
 
-export default class repositoryUsers implements IModel {
+export default class RepositoryUsers implements IModel {
   constructor(private userModel = UsersModel) {
     this.userModel = userModel;
   }
