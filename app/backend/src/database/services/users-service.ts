@@ -1,6 +1,7 @@
 import { IService } from '../interfaces';
 import Users from '../models/UsersModel';
 import repositoryUsers from '../repository/repositoryUsers';
+import generateToken from '../utils/generateToken';
 
 export default class UsersService implements IService {
   constructor(private repository: repositoryUsers) {
@@ -18,6 +19,7 @@ export default class UsersService implements IService {
       throw new Error('Incorrect email or password');
     }
     const user = await this.repository.create(data);
+    generateToken(user);
     return user;
   }
 
@@ -26,3 +28,8 @@ export default class UsersService implements IService {
     return user;
   }
 }
+
+/**
+ * const hashedPassword = await bcrypt.hash(req.body.password, 10)
+ * const user = {name : req.body, password: hashedPassword}
+ */

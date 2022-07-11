@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { IService } from '../interfaces';
+import generateToken from '../utils/generateToken';
 
 // const handleError = (error:Error) => ({
 //   status: 404,
@@ -24,12 +25,12 @@ export default class UsersController {
     }
   }
 
-  async list(req: Request, res: Response, _next: NextFunction) {
+  async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const users = await this.service.list();
-      return res.status(200).json({ users });
+      const [users] = await this.service.list();
+      return res.status(200).json({ token: generateToken(users) });
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   }
 }

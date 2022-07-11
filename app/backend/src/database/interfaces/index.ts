@@ -8,10 +8,10 @@ export interface IUsers {
   password: string;
 }
 
-export interface IModel {
-  create(data: Omit<Users, 'id'>): Promise<Users>;
-  // list(): Promise<Users[]>;
-}
+// export interface IModel {
+//   create(data: Omit<Users, 'id'>): Promise<Users>;
+//   // list(): Promise<Users[]>;
+// }
 
 export interface IService {
   create(data: Omit<Users, 'id'>): Promise<Users>;

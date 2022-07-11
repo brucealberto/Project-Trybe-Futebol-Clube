@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import Users from '../models/UsersModel';
 
-const secretPassword = 'secretPassword';
+const secretPassword = 'jwt_secret';
 
 const jwtConfig:jwt.SignOptions = { expiresIn: '20h', algorithm: 'HS256' };
 
