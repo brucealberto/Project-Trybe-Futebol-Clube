@@ -24,12 +24,12 @@ export default class UsersController {
     }
   }
 
-  // async list(req: Request, res: Response, _next: NextFunction) {
-  //   try {
-  //     const users = await this.service.list();
-  //     return res.status(200).json({ users });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  async list(req: Request, res: Response, _next: NextFunction) {
+    try {
+      const users = await this.service.list();
+      return res.status(200).json({ users });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

@@ -15,5 +15,5 @@ export interface IModel {
 
 export interface IService {
   create(data: Omit<Users, 'id'>): Promise<Users>;
-  // list(): Promise<Users[]>;
+  list(): Promise<Users[]>;
 }

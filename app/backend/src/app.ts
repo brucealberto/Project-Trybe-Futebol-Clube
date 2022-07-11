@@ -34,6 +34,7 @@ class App {
     this.app.use(express.json());
     this.app.use(accessControl);
     this.app.post('/users', (req, res, next) => { usersController.create(req, res, next); });
+    this.app.get('/users', (req, res, next) => usersController.list(req, res, next));
     this.app.use(errorMiddleware);
   }
 

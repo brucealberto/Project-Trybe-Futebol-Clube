@@ -11,8 +11,8 @@ export default class RepositoryUsers implements IModel {
     return usersData;
   }
 
-  // async list(): Promise<UsersModel[]> {
-  //   const usersData = await this.userModel.findAll();
-  //   return usersData;
-  // }
+  async list(): Promise<UsersModel[]> {
+    const usersData = await this.userModel.findAll();
+    return usersData;
+  }
 }

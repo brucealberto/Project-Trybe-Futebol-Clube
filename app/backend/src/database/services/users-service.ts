@@ -21,8 +21,8 @@ export default class UsersService implements IService {
     return user;
   }
 
-  // async list(): Promise<Users[]> {
-  //   const user = await this.repository.list();
-  //   return user;
-  // }
+  async list(): Promise<Users[]> {
+    const user = await this.repository.list();
+    return user;
+  }
 }
