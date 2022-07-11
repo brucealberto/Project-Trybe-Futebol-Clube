@@ -23,6 +23,7 @@ class App {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
       res.header('Access-Control-Allow-Headers', '*');
+      // this.app.get(req, res) => {}
       next();
     };
 
@@ -31,7 +32,6 @@ class App {
   }
 
   public start(PORT: string | number):void {
-    // this.app.get(req, res) => {}
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
   }
 }

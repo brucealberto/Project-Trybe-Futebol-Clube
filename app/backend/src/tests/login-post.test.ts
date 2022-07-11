@@ -22,7 +22,12 @@ describe('Login', () => {
       email: 'user@user.com',
       password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO',
     } as UsersModel);
-    const response = await chai.request(app).post('/users');
+    const response = await chai.request(app).post('/users').send({
+      username: 'User',
+      role: 'user',
+      email: 'user@user.com',
+      password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO',
+    });
     expect(response.status).to.be.equal(201);
     expect(response.body).to.be.eql({
       id: 2,
