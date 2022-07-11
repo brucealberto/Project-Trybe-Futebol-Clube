@@ -1,10 +1,15 @@
 import * as express from 'express';
-
-/* const factory = () => {
-  const entidade = new Entidade()
-  const service = new Service(entidade)
-  const controller = new Controlle(service)
-} */
+import UsersController from './database/controllers/users-controller';
+import RepositoryUsers from './database/repository/repositoryUsers';
+import UserService from './database/services/users-service';
+import errorMiddleware from './database/middlewares/error-middleware';
+// const factory = () => {
+//   const entidade = new RepositoryUsers();
+//   const service = new UserService(entidade);
+//   const controller = new UsersController(service);
+//   return controller;
+// };
+const usersController = new UsersController(new UserService(new RepositoryUsers()));
 
 class App {
   public app: express.Express;
@@ -23,12 +28,13 @@ class App {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
       res.header('Access-Control-Allow-Headers', '*');
-      // this.app.get(req, res) => {}
+      // this.app.post('/users', factory);
       next();
     };
-
     this.app.use(express.json());
     this.app.use(accessControl);
+    this.app.post('/users', (req, res, next) => { usersController.create(req, res, next); });
+    this.app.use(errorMiddleware);
   }
 
   public start(PORT: string | number):void {
