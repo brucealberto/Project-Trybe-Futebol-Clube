@@ -15,4 +15,10 @@ export default class RepositoryUsers {
     const usersData = await this.userModel.findAll();
     return usersData;
   }
+
+  async listByRole(): Promise<UsersModel> {
+    const userData = await this.userModel.findOne({});
+    return userData as unknown as UsersModel;
+  }
 }
+// as unknow as newinterface[]

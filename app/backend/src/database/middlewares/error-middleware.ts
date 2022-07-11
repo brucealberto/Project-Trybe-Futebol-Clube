@@ -4,6 +4,7 @@ const errorMiddleware = (error:Error, req:Request, res:Response, _next:NextFunct
   let status = 500;
   if (error.message === 'All fields must be filled') status = 400;
   if (error.message === 'Incorrect email or password') status = 401;
+  if (error.message === 'token inválido') status = 401;
   res.status(status).send(error.message);
 };
 export default errorMiddleware;

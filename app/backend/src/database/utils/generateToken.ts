@@ -1,7 +1,8 @@
 import * as jwt from 'jsonwebtoken';
 import Users from '../models/UsersModel';
+import 'dotenv/config';
 
-const secretPassword = 'jwt_secret';
+const secretPassword = process.env.JWT_SECRET || 'jwt_secret';
 
 const jwtConfig:jwt.SignOptions = { expiresIn: '20h', algorithm: 'HS256' };
 

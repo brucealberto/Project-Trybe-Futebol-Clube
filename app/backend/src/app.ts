@@ -3,6 +3,7 @@ import UsersController from './database/controllers/users-controller';
 import RepositoryUsers from './database/repository/repositoryUsers';
 import UserService from './database/services/users-service';
 import errorMiddleware from './database/middlewares/error-middleware';
+import authorizationMiddleware from './database/middlewares/authorizationMiddleware';
 // const factory = () => {
 //   const entidade = new RepositoryUsers();
 //   const service = new UserService(entidade);
@@ -33,8 +34,9 @@ class App {
     };
     this.app.use(express.json());
     this.app.use(accessControl);
-    this.app.post('/users', (req, res, next) => { usersController.create(req, res, next); });
-    this.app.get('/users', (req, res, next) => usersController.list(req, res, next));
+    this.app.post('/login', (req, res, next) => { usersController.create(req, res, next); });
+    this.app.get('/login', (req, res, next) => usersController.list(req, res, next));
+    this.app.get('/login/validate', authorizationMiddleware);
     this.app.use(errorMiddleware);
   }
 
