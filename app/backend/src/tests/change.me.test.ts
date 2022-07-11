@@ -13,6 +13,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Seu teste', () => {
+  // beforeEach(sinon.restore); que é do mocha
   /**
    * Exemplo do uso de stubs com tipos
    */
