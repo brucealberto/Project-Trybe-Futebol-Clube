@@ -13,7 +13,7 @@ export default class UsersController {
     this.service = service;
   }
 
-  async create(req: Request, res: Response, next: NextFunction) {
+  async find(req: Request, res: Response, next: NextFunction) {
     try {
       const login = await this.service.find(req.body);
       return res.status(200).json({ token: generateToken(login) });

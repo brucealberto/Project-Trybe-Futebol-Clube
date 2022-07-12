@@ -34,7 +34,7 @@ class App {
     };
     this.app.use(express.json());
     this.app.use(accessControl);
-    this.app.post('/login', (req, res, next) => { loginController.create(req, res, next); });
+    this.app.post('/login', (req, res, next) => { loginController.find(req, res, next); });
     // this.app.get('/login', (req, res, next) => usersController.list(req, res, next));
     this.app.get('/login/validate', authorizationMiddleware);
     this.app.use(errorMiddleware);

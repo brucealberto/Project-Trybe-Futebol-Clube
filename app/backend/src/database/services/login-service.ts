@@ -9,13 +9,13 @@ export default class LoginService implements IService {
   }
 
   async find(data: Omit<Users, 'id'>): Promise<Users> {
-    if (!data.email && !data.password) {
+    if (!data.email || !data.password) {
       throw new Error('All fields must be filled');
     }
     if (!data.email.includes('@') || !data.email.includes('.com')) {
       throw new Error('Incorrect email or password');
     }
-    if (data.password.length < 6) {
+    if (data.password.length <= 6) {
       throw new Error('Incorrect email or password');
     }
     const login = await this.repository.find({ where: { email: data.email } });
