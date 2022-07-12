@@ -15,7 +15,7 @@ export default class UsersController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const login = await this.service.create(req.body);
+      const login = await this.service.find(req.body);
       return res.status(200).json({ token: generateToken(login) });
     } catch (error) {
       // const newError = error as Error;

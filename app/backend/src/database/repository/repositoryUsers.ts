@@ -6,14 +6,14 @@ export default class RepositoryLogin {
     this.userModel = userModel;
   }
 
-  async create(data: Omit<UsersModel, 'id'>): Promise<UsersModel> {
-    const usersData = await this.userModel.create(data);
-    return usersData;
+  async find(data: object): Promise<UsersModel> {
+    const usersData = await this.userModel.findOne(data);
+    return usersData as UsersModel;
   }
 
-  async list(): Promise<UsersModel[]> {
-    const usersData = await this.userModel.findAll();
-    return usersData;
-  }
+  // async list(): Promise<UsersModel[]> {
+  //   const usersData = await this.userModel.findAll();
+  //   return usersData;
+  // }
 }
 // as unknow as newinterface[]

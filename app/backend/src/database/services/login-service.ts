@@ -8,7 +8,7 @@ export default class LoginService implements IService {
     this.repository = repository;
   }
 
-  async create(data: Omit<Users, 'id'>): Promise<Users> {
+  async find(data: Omit<Users, 'id'>): Promise<Users> {
     if (!data.email && !data.password) {
       throw new Error('All fields must be filled');
     }
@@ -18,15 +18,15 @@ export default class LoginService implements IService {
     if (data.password.length < 6) {
       throw new Error('Incorrect email or password');
     }
-    const login = await this.repository.create(data);
+    const login = await this.repository.find({ where: { email: data.email } });
     generateToken(login);
     return login;
   }
 
-  async list(): Promise<Users[]> {
-    const login = await this.repository.list();
-    return login;
-  }
+  // async list(): Promise<Users[]> {
+  //   const login = await this.repository.list();
+  //   return login;
+  // }
 }
 
 /**
