@@ -1,7 +1,7 @@
 import UsersModel from '../models/UsersModel';
 // import { IModel } from '../interfaces';
 
-export default class RepositoryUsers {
+export default class RepositoryLogin {
   constructor(private userModel = UsersModel) {
     this.userModel = userModel;
   }
@@ -14,11 +14,6 @@ export default class RepositoryUsers {
   async list(): Promise<UsersModel[]> {
     const usersData = await this.userModel.findAll();
     return usersData;
-  }
-
-  async listByRole(): Promise<UsersModel> {
-    const userData = await this.userModel.findOne({});
-    return userData as unknown as UsersModel;
   }
 }
 // as unknow as newinterface[]

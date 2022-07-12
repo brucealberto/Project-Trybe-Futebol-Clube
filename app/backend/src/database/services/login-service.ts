@@ -3,7 +3,7 @@ import Users from '../models/UsersModel';
 import repositoryUsers from '../repository/repositoryUsers';
 import generateToken from '../utils/generateToken';
 
-export default class UsersService implements IService {
+export default class LoginService implements IService {
   constructor(private repository: repositoryUsers) {
     this.repository = repository;
   }
@@ -18,14 +18,14 @@ export default class UsersService implements IService {
     if (data.password.length < 6) {
       throw new Error('Incorrect email or password');
     }
-    const user = await this.repository.create(data);
-    generateToken(user);
-    return user;
+    const login = await this.repository.create(data);
+    generateToken(login);
+    return login;
   }
 
   async list(): Promise<Users[]> {
-    const user = await this.repository.list();
-    return user;
+    const login = await this.repository.list();
+    return login;
   }
 }
 

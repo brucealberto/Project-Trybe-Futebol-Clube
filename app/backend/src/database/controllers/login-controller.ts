@@ -15,8 +15,8 @@ export default class UsersController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const user = await this.service.create(req.body);
-      return res.status(201).json(user);
+      const login = await this.service.create(req.body);
+      return res.status(200).json({ token: generateToken(login) });
     } catch (error) {
       // const newError = error as Error;
       // const errorMessage = handleError(newError);
@@ -25,12 +25,12 @@ export default class UsersController {
     }
   }
 
-  async list(req: Request, res: Response, next: NextFunction) {
-    try {
-      const [users] = await this.service.list();
-      return res.status(200).json({ token: generateToken(users) });
-    } catch (error) {
-      next(error);
-    }
-  }
+  // async list(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const [users] = await this.service.list();
+  //     return res.status(200).json();
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 }

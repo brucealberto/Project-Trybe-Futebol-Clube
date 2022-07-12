@@ -50,7 +50,6 @@ describe(getRequirement(3), () => {
     });
 
     await page.waitForTimeout(puppeteerDefs.pause.brief);
-
     expect(
       !!jwt.verify(token, jwtSecret),
     ).toEqual(true);

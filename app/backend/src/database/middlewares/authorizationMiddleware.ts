@@ -2,22 +2,24 @@ import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
-interface Data {
-  data:{ role:string }
-}
+// interface Data {
+//   data:{ role:}
+// }
 
 export default (req:Request, res:Response, next:NextFunction) => {
   const { authorization } = req.headers;
   try {
     if (authorization) {
       const secret = process.env.JWT_SECRET || 'jwt_secret';
-      const data = jwt.verify(authorization, secret) as Data;
-      return res.status(200).json({ role: data.data.role });
+      const verified = jwt.verify(authorization, secret) as jwt.JwtPayload;
+      return res.status(200).json({ role: verified.data.role });
     }
   } catch (error) {
-    console.log(error);
-    next({ message: 'token inválido' });
+    // console.log(error.message);
+    next(error);
+    // if (error.message === 'jwt malformed') {
+    //   return res.status(401).json({ message: 'inválid token' });
+    // }
   }
-
-  res.status(200).end();
+  // res.status(200).end();
 };

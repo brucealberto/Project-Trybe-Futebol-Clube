@@ -1,7 +1,7 @@
 import * as express from 'express';
-import UsersController from './database/controllers/users-controller';
+import UsersController from './database/controllers/login-controller';
 import RepositoryUsers from './database/repository/repositoryUsers';
-import UserService from './database/services/users-service';
+import UserService from './database/services/login-service';
 import errorMiddleware from './database/middlewares/error-middleware';
 import authorizationMiddleware from './database/middlewares/authorizationMiddleware';
 // const factory = () => {
@@ -10,7 +10,7 @@ import authorizationMiddleware from './database/middlewares/authorizationMiddlew
 //   const controller = new UsersController(service);
 //   return controller;
 // };
-const usersController = new UsersController(new UserService(new RepositoryUsers()));
+const loginController = new UsersController(new UserService(new RepositoryUsers()));
 
 class App {
   public app: express.Express;
@@ -34,8 +34,8 @@ class App {
     };
     this.app.use(express.json());
     this.app.use(accessControl);
-    this.app.post('/login', (req, res, next) => { usersController.create(req, res, next); });
-    this.app.get('/login', (req, res, next) => usersController.list(req, res, next));
+    this.app.post('/login', (req, res, next) => { loginController.create(req, res, next); });
+    // this.app.get('/login', (req, res, next) => usersController.list(req, res, next));
     this.app.get('/login/validate', authorizationMiddleware);
     this.app.use(errorMiddleware);
   }
