@@ -7,6 +7,9 @@ import authorizationMiddleware from './database/middlewares/authorizationMiddlew
 import TeamsController from './database/controllers/teams-controller';
 import TeamsService from './database/services/teams-service';
 import RepositoryTeams from './database/repository/repositoryTeams';
+import MatchesController from './database/controllers/matches-controller';
+import MatchesService from './database/services/matches-service';
+import RepositoryMatches from './database/repository/repositoryMatches';
 // const factory = () => {
 //   const entidade = new RepositoryUsers();
 //   const service = new UserService(entidade);
@@ -15,6 +18,7 @@ import RepositoryTeams from './database/repository/repositoryTeams';
 // };
 const loginController = new UsersController(new UserService(new RepositoryUsers()));
 const teamsControler = new TeamsController(new TeamsService(new RepositoryTeams()));
+const matchesController = new MatchesController(new MatchesService(new RepositoryMatches()));
 
 class App {
   public app: express.Express;
@@ -44,6 +48,8 @@ class App {
     // Teams Routes
     this.app.get('/teams', (req, res, next) => { teamsControler.list(req, res, next); });
     this.app.get('/teams/:id', (req, res, next) => { teamsControler.find(req, res, next); });
+    // Matches Routes
+    this.app.get('/matches', (req, res, next) => { matchesController.list(req, res, next); });
     this.app.use(errorMiddleware);
   }
 
