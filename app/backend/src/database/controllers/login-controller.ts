@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IService } from '../interfaces';
+import { IUsersService } from '../interfaces';
 import generateToken from '../utils/generateToken';
 
 // const handleError = (error:Error) => ({
@@ -8,8 +8,8 @@ import generateToken from '../utils/generateToken';
 // });
 
 export default class UsersController {
-  private service: IService;
-  constructor(service: IService) {
+  private service: IUsersService;
+  constructor(service: IUsersService) {
     this.service = service;
   }
 

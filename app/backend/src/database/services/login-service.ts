@@ -1,9 +1,9 @@
-import { IService } from '../interfaces';
+import { IUsersService } from '../interfaces';
 import Users from '../models/UsersModel';
 import repositoryUsers from '../repository/repositoryUsers';
-// import generateToken from '../utils/generateToken';
+
 const errorMessage = 'All fields must be filled';
-export default class LoginService implements IService {
+export default class LoginService implements IUsersService {
   constructor(private repository: repositoryUsers) {
     this.repository = repository;
   }
@@ -24,7 +24,6 @@ export default class LoginService implements IService {
     if (!login) {
       throw new Error('Incorrect email or password');
     }
-    // generateToken(login);
     return login;
   }
 

@@ -1,5 +1,4 @@
 import UsersModel from '../models/UsersModel';
-// import { IModel } from '../interfaces';
 
 export default class RepositoryLogin {
   constructor(private userModel = UsersModel) {

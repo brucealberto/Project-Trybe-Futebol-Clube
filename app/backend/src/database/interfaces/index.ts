@@ -1,3 +1,4 @@
+import Teams from '../models/TeamsModel';
 import Users from '../models/UsersModel';
 
 export interface IUsers {
@@ -13,7 +14,10 @@ export interface IUsers {
 //   // list(): Promise<Users[]>;
 // }
 
-export interface IService {
+export interface IUsersService {
   find(data: Omit<Users, 'id'>): Promise<Users>;
   // list(): Promise<Users[]>;
+}
+export interface ITeamsService {
+  list(): Promise<Teams[]>;
 }
