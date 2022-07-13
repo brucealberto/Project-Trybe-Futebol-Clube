@@ -43,6 +43,7 @@ class App {
     this.app.get('/login/validate', authorizationMiddleware);
     // Teams Routes
     this.app.get('/teams', (req, res, next) => { teamsControler.list(req, res, next); });
+    this.app.get('/teams/:id', (req, res, next) => { teamsControler.find(req, res, next); });
     this.app.use(errorMiddleware);
   }
 

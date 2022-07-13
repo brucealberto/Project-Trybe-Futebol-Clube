@@ -9,4 +9,9 @@ export default class RepositoryTeams {
     const result = await this.teamsModel.findAll();
     return result;
   }
+
+  async find(data: object): Promise<TeamsModel> {
+    const usersData = await this.teamsModel.findOne(data);
+    return usersData as TeamsModel;
+  }
 }

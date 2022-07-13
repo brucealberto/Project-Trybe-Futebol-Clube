@@ -20,4 +20,5 @@ export interface IUsersService {
 }
 export interface ITeamsService {
   list(): Promise<Teams[]>;
+  find(data: string): Promise<Teams>;
 }
