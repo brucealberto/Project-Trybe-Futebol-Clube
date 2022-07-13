@@ -2,7 +2,7 @@ import { IService } from '../interfaces';
 import Users from '../models/UsersModel';
 import repositoryUsers from '../repository/repositoryUsers';
 // import generateToken from '../utils/generateToken';
-
+const errorMessage = 'All fields must be filled';
 export default class LoginService implements IService {
   constructor(private repository: repositoryUsers) {
     this.repository = repository;
@@ -10,13 +10,20 @@ export default class LoginService implements IService {
 
   async find(data: Omit<Users, 'id'>): Promise<Users> {
     if (!data.email || !data.password) {
-      throw new Error('All fields must be filled');
+      throw new Error(errorMessage);
     }
-
+    if (!data.email.includes('@') || !data.email.includes('.com')) {
+      throw new Error(errorMessage);
+    }
     if (data.password.length <= 6) {
+      throw new Error(errorMessage);
+    }
+    const login = await this.repository.find({
+      where: { email: data.email },
+    });
+    if (!login) {
       throw new Error('Incorrect email or password');
     }
-    const login = await this.repository.find({ where: { email: data.email } });
     // generateToken(login);
     return login;
   }
