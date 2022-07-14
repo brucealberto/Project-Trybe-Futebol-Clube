@@ -14,4 +14,32 @@ export default class MatchesController {
       return res.status(400).json({ message: error });
     }
   }
+
+  async create(req:Request, res:Response, _next:NextFunction) {
+    try {
+      const result = await this.service.create({ ...req.body, inProgress: true });
+      return res.status(201).json(result);
+    } catch (error) {
+      return res.status(400).json({ message: error });
+    }
+  }
+
+  // async findByProgress(req:Request, res:Response, _next:NextFunction) {
+  //   try {
+  //     const { inProgress } = req.query;
+  //     const result = await this.service.findByProgress(inProgress);
+  //     return res.status(200).json(result);
+  //   } catch (error) {
+  //     return res.status(400).json({ message: error });
+  //   }
+  // }
 }
+
+/**
+ *  "id": 1,
+  "homeTeam": 16,
+  "homeTeamGoals": 2,
+  "awayTeam": 8,
+  "awayTeamGoals": 2,
+  "inProgress": true,
+ */

@@ -6,8 +6,17 @@ export default class MatchesService {
     this.repository = repository;
   }
 
-  async list():Promise<MatchesModel[]> {
+  async list(): Promise<MatchesModel[]> {
     const result = await this.repository.list();
     return result;
   }
+
+  async create(data:MatchesModel): Promise<MatchesModel> {
+    const result = await this.repository.create(data);
+    return result;
+  }
+  // async findByProgress(inProgress: number): Promise<MatchesModel> {
+  //   const result = await this.repository.findByProgress(inProgress);
+  //   return result;
+  // }
 }

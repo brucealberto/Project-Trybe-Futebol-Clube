@@ -50,6 +50,7 @@ class App {
     this.app.get('/teams/:id', (req, res, next) => { teamsControler.find(req, res, next); });
     // Matches Routes
     this.app.get('/matches', (req, res, next) => { matchesController.list(req, res, next); });
+    this.app.post('/matches', (req, res, next) => { matchesController.create(req, res, next); });
     this.app.use(errorMiddleware);
   }
 

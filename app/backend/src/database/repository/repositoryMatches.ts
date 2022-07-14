@@ -19,4 +19,15 @@ export default class RepositoryMatches {
       }] });
     return result;
   }
+
+  async create(data:Matches):Promise<Matches> {
+    // const findProgress = await this.matchesModel.findAll({data: data.inProgress})
+    const result = await this.matchesModel.create(data);
+    return result;
+  }
+
+  // async findByProgress(inProgress:number):Promise<Matches> {
+  //   const result = await this.matchesModel.findOne({ where: { inProgress } });
+  //   return result as Matches;
+  // }
 }
