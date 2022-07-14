@@ -15,6 +15,11 @@ export default class MatchesService {
     const result = await this.repository.create(data);
     return result;
   }
+
+  async update(id: number): Promise<MatchesModel[]> {
+    const result = await this.repository.updateMethod(id);
+    return result;
+  }
   // async findByProgress(inProgress: number): Promise<MatchesModel> {
   //   const result = await this.repository.findByProgress(inProgress);
   //   return result;

@@ -51,6 +51,9 @@ class App {
     // Matches Routes
     this.app.get('/matches', (req, res, next) => { matchesController.list(req, res, next); });
     this.app.post('/matches', (req, res, next) => { matchesController.create(req, res, next); });
+    this.app.patch('/matches/:id/finish', (req, res, next) => {
+      matchesController.update(req, res, next);
+    });
     this.app.use(errorMiddleware);
   }
 

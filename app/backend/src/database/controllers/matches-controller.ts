@@ -24,6 +24,16 @@ export default class MatchesController {
     }
   }
 
+  async update(req:Request, res:Response, _next:NextFunction) {
+    try {
+      const { id } = req.params;
+      await this.service.update(+id);
+      return res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      return res.status(400).json({ message: error });
+    }
+  }
+
   // async findByProgress(req:Request, res:Response, _next:NextFunction) {
   //   try {
   //     const { inProgress } = req.query;

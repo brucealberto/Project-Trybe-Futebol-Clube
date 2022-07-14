@@ -6,26 +6,37 @@ export default class RepositoryMatches {
     this.matchesModel = matchesModel;
   }
 
-  async list():Promise<Matches[]> {
+  async list(): Promise<Matches[]> {
     const result = await this.matchesModel.findAll({
-      include: [{
-        model: Teams,
-        as: 'teamHome',
-        attributes: { exclude: ['id'] } },
-      {
-        model: Teams,
-        as: 'teamAway',
-        attributes: { exclude: ['id'] },
-      }] });
+      include: [
+        {
+          model: Teams,
+          as: 'teamHome',
+          attributes: { exclude: ['id'] },
+        },
+        {
+          model: Teams,
+          as: 'teamAway',
+          attributes: { exclude: ['id'] },
+        },
+      ],
+    });
     return result;
   }
 
-  async create(data:Matches):Promise<Matches> {
+  async create(data: Matches): Promise<Matches> {
     // const findProgress = await this.matchesModel.findAll({data: data.inProgress})
     const result = await this.matchesModel.create(data);
     return result;
   }
 
+  async updateMethod(id: number): Promise<Matches[]> {
+    const [, result] = await this.matchesModel.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+    return result;
+  }
   // async findByProgress(inProgress:number):Promise<Matches> {
   //   const result = await this.matchesModel.findOne({ where: { inProgress } });
   //   return result as Matches;
