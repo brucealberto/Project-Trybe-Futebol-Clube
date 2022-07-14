@@ -37,6 +37,11 @@ export default class RepositoryMatches {
     );
     return result;
   }
+
+  async findTeamsByPk(id: number): Promise<Matches> {
+    const result = await this.matchesModel.findByPk(id);
+    return result as Matches;
+  }
   // async findByProgress(inProgress:number):Promise<Matches> {
   //   const result = await this.matchesModel.findOne({ where: { inProgress } });
   //   return result as Matches;

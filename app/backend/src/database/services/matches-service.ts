@@ -12,9 +12,19 @@ export default class MatchesService {
   }
 
   async create(data:MatchesModel): Promise<MatchesModel> {
+    const find = await this.repository.findTeamsByPk(data.id);
+    if (!find) { throw new Error('There is no team with such id!'); }
+    if (data.homeTeam === data.awayTeam) {
+      throw new Error('It is not possible to create a match with two equal teams');
+    }
     const result = await this.repository.create(data);
     return result;
   }
+
+  // async findByPk(id:number) : Promise<MatchesModel> {
+  //   const result = await this.repository.findTeamsByPk(id);
+  //   return result;
+  // }
 
   async update(id: number): Promise<MatchesModel[]> {
     const result = await this.repository.updateMethod(id);

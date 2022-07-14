@@ -15,18 +15,15 @@ export default class MatchesController {
     }
   }
 
-  async create(req:Request, res:Response, _next:NextFunction) {
+  async create(req:Request, res:Response, next:NextFunction) {
     try {
-      const { homeTeam, awayTeam } = req.body;
-      if (awayTeam === homeTeam) {
-        return res.status(401).json(
-          { message: 'It is not possible to create a match with two equal teams' },
-        );
-      }
+      // const { id } = req.params;
+      // const find = await this.service.findByPk(+id);
+      // if (!find) return res.status(404).json({ message: 'There is no team with such id!' });
       const result = await this.service.create({ ...req.body, inProgress: true });
       return res.status(201).json(result);
     } catch (error) {
-      return res.status(400).json({ message: error });
+      next(error);
     }
   }
 
@@ -52,10 +49,12 @@ export default class MatchesController {
 }
 
 /**
- *  "id": 1,
-  "homeTeam": 16,
-  "homeTeamGoals": 2,
-  "awayTeam": 8,
-  "awayTeamGoals": 2,
-  "inProgress": true,
+ *res.status(404).json({ message: 'There is no team with such id!' });
+
+    // const { homeTeam, awayTeam } = req.body;
+      // if (awayTeam === homeTeam) {
+      //   return res.status(401).json(
+      //     { message: 'It is not possible to create a match with two equal teams' },
+      //   );
+      // }
  */
