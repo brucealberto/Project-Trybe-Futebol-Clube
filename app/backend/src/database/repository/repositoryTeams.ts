@@ -15,8 +15,8 @@ export default class RepositoryTeams {
     return usersData as TeamsModel;
   }
 
-  // async findTeamsByPk(id: number): Promise<TeamsModel> {
-  //   const result = await this.teamsModel.findByPk(id);
-  //   return result as TeamsModel;
-  // }
+  async findTeamsByPk(id: number): Promise<TeamsModel> {
+    const result = await this.teamsModel.findByPk(id);
+    return result as TeamsModel;
+  }
 }
