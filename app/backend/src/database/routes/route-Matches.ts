@@ -20,12 +20,12 @@ router.post('/', validationMiddleware, (req, res, next) => {
   matchesController.create(req, res, next);
 });
 
+router.patch('/:id', (req, res, next) => {
+  matchesController.updateId(req, res, next);
+});
+
 router.patch('/:id/finish', (req, res, next) => {
   matchesController.update(req, res, next);
 });
-
-// router.patch('/:id', (req, res, next) => {
-//   controller.updateScore(req, res, next);
-// });
 
 export default router;

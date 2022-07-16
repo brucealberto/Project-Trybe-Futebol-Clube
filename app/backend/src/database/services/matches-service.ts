@@ -32,10 +32,16 @@ export default class MatchesService {
   //   return result;
   // }
 
-  async update(id: number): Promise<MatchesModel[]> {
+  async update(id: number) {
     const result = await this.repository.updateMethod(id);
     return result;
   }
+
+  async updateId(body: object, id: number) {
+    const result = await this.repository.updateId(body, id);
+    return result;
+  }
+
   // async findByProgress(inProgress: number): Promise<MatchesModel> {
   //   const result = await this.repository.findByProgress(inProgress);
   //   return result;

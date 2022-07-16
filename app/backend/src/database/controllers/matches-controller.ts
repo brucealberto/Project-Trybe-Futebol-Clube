@@ -37,6 +37,16 @@ export default class MatchesController {
     }
   }
 
+  async updateId(req:Request, res:Response, _next:NextFunction) {
+    try {
+      const { id } = req.params;
+      await this.service.updateId(req.body, +id);
+      return res.status(200).json({ message: 'Updated ID' });
+    } catch (error) {
+      return res.status(400).json({ message: error });
+    }
+  }
+
   // async findByProgress(req:Request, res:Response, _next:NextFunction) {
   //   try {
   //     const { inProgress } = req.query;
@@ -47,14 +57,3 @@ export default class MatchesController {
   //   }
   // }
 }
-
-/**
- *res.status(404).json({ message: 'There is no team with such id!' });
-
-    // const { homeTeam, awayTeam } = req.body;
-      // if (awayTeam === homeTeam) {
-      //   return res.status(401).json(
-      //     { message: 'It is not possible to create a match with two equal teams' },
-      //   );
-      // }
- */

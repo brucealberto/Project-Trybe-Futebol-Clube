@@ -30,9 +30,17 @@ export default class RepositoryMatches {
     return result;
   }
 
-  async updateMethod(id: number): Promise<Matches[]> {
-    const [, result] = await this.matchesModel.update(
+  async updateMethod(id: number) {
+    const result = await this.matchesModel.update(
       { inProgress: false },
+      { where: { id } },
+    );
+    return result;
+  }
+
+  async updateId(body:object, id: number) {
+    const result = await this.matchesModel.update(
+      body,
       { where: { id } },
     );
     return result;
