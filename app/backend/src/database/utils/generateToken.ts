@@ -1,14 +1,14 @@
 import * as jwt from 'jsonwebtoken';
-import Users from '../models/UsersModel';
+// import Users from '../models/UsersModel';
 import 'dotenv/config';
 
-const secretPassword = process.env.JWT_SECRET || 'jwt_secret';
+const secret = process.env.JWT_SECRET || 'jwt_secret';
 
 const jwtConfig:jwt.SignOptions = { expiresIn: '20h', algorithm: 'HS256' };
 
-const generateToken = (payload: Users) => {
+const generateToken = (payload: object) => {
   const token = jwt
-    .sign({ data: payload }, secretPassword, jwtConfig);
+    .sign({ data: payload }, secret, jwtConfig);
   return token;
 };
 

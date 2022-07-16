@@ -1,24 +1,17 @@
 import * as express from 'express';
-import UsersController from './database/controllers/login-controller';
-import RepositoryUsers from './database/repository/repositoryUsers';
-import UserService from './database/services/login-service';
+
+import userRoute from './database/routes/route-User';
+import teamsRoute from './database/routes/route-Teams';
+import matchesRoute from './database/routes/route-Matches';
 import errorMiddleware from './database/middlewares/error-middleware';
-import authorizationMiddleware from './database/middlewares/authorizationMiddleware';
-import TeamsController from './database/controllers/teams-controller';
-import TeamsService from './database/services/teams-service';
-import RepositoryTeams from './database/repository/repositoryTeams';
-import MatchesController from './database/controllers/matches-controller';
-import MatchesService from './database/services/matches-service';
-import RepositoryMatches from './database/repository/repositoryMatches';
 // const factory = () => {
 //   const entidade = new RepositoryUsers();
 //   const service = new UserService(entidade);
 //   const controller = new UsersController(service);
 //   return controller;
 // };
-const loginController = new UsersController(new UserService(new RepositoryUsers()));
-const teamsControler = new TeamsController(new TeamsService(new RepositoryTeams()));
-const matchesController = new MatchesController(new MatchesService(new RepositoryMatches()));
+// const loginController = new UsersController(new UserService(new RepositoryUsers()));
+// const matchesController = new MatchesController(new MatchesService(new RepositoryMatches()));
 
 class App {
   public app: express.Express;
@@ -37,23 +30,17 @@ class App {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
       res.header('Access-Control-Allow-Headers', '*');
-      // this.app.post('/users', factory);
       next();
     };
     this.app.use(express.json());
     this.app.use(accessControl);
-    // Login Routes
-    this.app.post('/login', (req, res, next) => { loginController.find(req, res, next); });
-    this.app.get('/login/validate', authorizationMiddleware);
-    // Teams Routes
-    this.app.get('/teams', (req, res, next) => { teamsControler.list(req, res, next); });
-    this.app.get('/teams/:id', (req, res, next) => { teamsControler.find(req, res, next); });
-    // Matches Routes
-    this.app.get('/matches', (req, res, next) => { matchesController.list(req, res, next); });
-    this.app.post('/matches', (req, res, next) => { matchesController.create(req, res, next); });
-    this.app.patch('/matches/:id/finish', (req, res, next) => {
-      matchesController.update(req, res, next);
-    });
+    this.app.use('/login', userRoute);
+    this.app.use('/teams', teamsRoute);
+    this.app.use('/matches', matchesRoute);
+    // this.app.post('/matches', validationMiddleware, (req, res, next) => {
+    //   matchesController.create(req, res, next); });
+    // this.app.patch('/matches/:id/finish', (req, res, next) => {
+    //   matchesController.update(req, res, next)});
     this.app.use(errorMiddleware);
   }
 

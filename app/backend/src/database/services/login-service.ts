@@ -1,10 +1,10 @@
 import { IUsersService } from '../interfaces';
 import Users from '../models/UsersModel';
-import repositoryUsers from '../repository/repositoryUsers';
+import RepositoryLogin from '../repository/repositoryUsers';
 
 const errorMessage = 'All fields must be filled';
 export default class LoginService implements IUsersService {
-  constructor(private repository: repositoryUsers) {
+  constructor(private repository: RepositoryLogin) {
     this.repository = repository;
   }
 
