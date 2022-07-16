@@ -1,5 +1,6 @@
 import * as express from 'express';
 import MatchesController from '../controllers/matches-controller';
+import validationMiddleware from '../middlewares/validationMiddleware';
 import RepositoryMatches from '../repository/repositoryMatches';
 import MatchesService from '../services/matches-service';
 
@@ -15,7 +16,7 @@ router.get('/', (req, res, next) => {
   matchesController.list(req, res, next);
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', validationMiddleware, (req, res, next) => {
   matchesController.create(req, res, next);
 });
 
