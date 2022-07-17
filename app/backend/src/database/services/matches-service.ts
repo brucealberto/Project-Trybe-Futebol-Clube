@@ -1,7 +1,25 @@
+import { IHomeBoard } from '../interfaces';
 import MatchesModel from '../models/MatchesModel';
 import RepositoryMatches from '../repository/repositoryMatches';
 import RepositoryTeams from '../repository/repositoryTeams';
+import { draws,
+  efficiency, goalsDown, goalsUp, losses, totalPoints, victory } from '../utils/boardHelp';
 
+const expectedReturn = (data: IHomeBoard[]) => {
+  const response = data.map((t) => ({
+    name: t.teamName,
+    totalPoints: totalPoints(t.teamHome),
+    totalGames: t.teamHome.length,
+    totalVictories: victory(t.teamHome),
+    totalDraws: draws(t.teamHome),
+    totalLosses: losses(t.teamHome),
+    goalsFavor: goalsUp(t.teamHome),
+    goalsOwn: goalsDown(t.teamHome),
+    goalsBalance: goalsUp(t.teamHome) - goalsDown(t.teamHome),
+    efficiency: efficiency(t.teamHome),
+  }));
+  return response;
+};
 export default class MatchesService {
   private repoTeams: RepositoryTeams;
   constructor(private repository: RepositoryMatches) {
@@ -27,11 +45,6 @@ export default class MatchesService {
     return result;
   }
 
-  // async findByPk(id:number) : Promise<MatchesModel> {
-  //   const result = await this.repository.findTeamsByPk(id);
-  //   return result;
-  // }
-
   async update(id: number) {
     const result = await this.repository.updateMethod(id);
     return result;
@@ -42,8 +55,8 @@ export default class MatchesService {
     return result;
   }
 
-  // async findByProgress(inProgress: number): Promise<MatchesModel> {
-  //   const result = await this.repository.findByProgress(inProgress);
-  //   return result;
-  // }
+  async listClassification() {
+    const matches = await this.repository.listClassification() as unknown as IHomeBoard[];
+    return expectedReturn(matches);
+  }
 }

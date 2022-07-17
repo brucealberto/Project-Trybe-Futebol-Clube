@@ -2,6 +2,7 @@ import Matches from '../models/MatchesModel';
 import Teams from '../models/TeamsModel';
 
 export default class RepositoryMatches {
+  private _teamsModel = Teams;
   constructor(private matchesModel = Matches) {
     this.matchesModel = matchesModel;
   }
@@ -38,7 +39,7 @@ export default class RepositoryMatches {
     return result;
   }
 
-  async updateId(body:object, id: number) {
+  async updateId(body: object, id: number) {
     const result = await this.matchesModel.update(
       body,
       { where: { id } },
@@ -50,8 +51,18 @@ export default class RepositoryMatches {
     const result = await this.matchesModel.findByPk(id);
     return result as Matches;
   }
-  // async findByProgress(inProgress:number):Promise<Matches> {
-  //   const result = await this.matchesModel.findOne({ where: { inProgress } });
-  //   return result as Matches;
-  // }
+
+  async listClassification() {
+    const result = await this._teamsModel.findAll({
+      include:
+        {
+          model: this.matchesModel,
+          as: 'teamHome',
+          attributes: { exclude: ['id', 'homeTeam', 'awayTeam', 'inProgress'] },
+          where: { inProgress: false },
+        },
+      attributes: { exclude: ['id'] },
+    });
+    return result;
+  }
 }

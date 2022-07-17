@@ -28,4 +28,8 @@ router.patch('/:id/finish', (req, res, next) => {
   matchesController.update(req, res, next);
 });
 
+router.get('/home', (req, res, next) => {
+  matchesController.listClassification(req, res, next);
+});
+
 export default router;

@@ -37,6 +37,7 @@ class App {
     this.app.use('/login', userRoute);
     this.app.use('/teams', teamsRoute);
     this.app.use('/matches', matchesRoute);
+    this.app.use('/leaderboard', matchesRoute);
     // this.app.post('/matches', validationMiddleware, (req, res, next) => {
     //   matchesController.create(req, res, next); });
     // this.app.patch('/matches/:id/finish', (req, res, next) => {
