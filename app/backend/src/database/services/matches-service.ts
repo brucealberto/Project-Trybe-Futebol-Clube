@@ -2,8 +2,15 @@ import { IHomeBoard } from '../interfaces';
 import MatchesModel from '../models/MatchesModel';
 import RepositoryMatches from '../repository/repositoryMatches';
 import RepositoryTeams from '../repository/repositoryTeams';
-import { draws,
-  efficiency, goalsDown, goalsUp, losses, totalPoints, victory } from '../utils/boardHelp';
+import {
+  draws,
+  efficiency,
+  goalsDown,
+  goalsUp,
+  losses,
+  totalPoints,
+  victory,
+} from '../utils/boardHelp';
 
 const expectedReturn = (data: IHomeBoard[]) => {
   const response = data.map((t) => ({
@@ -32,14 +39,18 @@ export default class MatchesService {
     return result;
   }
 
-  async create(data:MatchesModel): Promise<MatchesModel> {
+  async create(data: MatchesModel): Promise<MatchesModel> {
     if (data.homeTeam === data.awayTeam) {
-      throw new Error('It is not possible to create a match with two equal teams');
+      throw new Error(
+        'It is not possible to create a match with two equal teams',
+      );
     }
 
     const find = await this.repoTeams.findTeamsByPk(data.homeTeam);
 
-    if (!find) { throw new Error('There is no team with such id!'); }
+    if (!find) {
+      throw new Error('There is no team with such id!');
+    }
 
     const result = await this.repository.create(data);
     return result;
@@ -56,7 +67,12 @@ export default class MatchesService {
   }
 
   async listClassification() {
-    const matches = await this.repository.listClassification() as unknown as IHomeBoard[];
-    return expectedReturn(matches);
+    const matches = (await this.repository.listClassification()) as unknown as IHomeBoard[];
+    return expectedReturn(matches).sort((a, b) => (
+      b.totalPoints - a.totalPoints
+        || b.goalsBalance - a.goalsBalance
+        || b.goalsFavor - a.goalsFavor
+        || b.goalsOwn - a.goalsOwn
+    ));
   }
 }

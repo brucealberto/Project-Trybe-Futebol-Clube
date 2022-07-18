@@ -4,14 +4,6 @@ import userRoute from './database/routes/route-User';
 import teamsRoute from './database/routes/route-Teams';
 import matchesRoute from './database/routes/route-Matches';
 import errorMiddleware from './database/middlewares/error-middleware';
-// const factory = () => {
-//   const entidade = new RepositoryUsers();
-//   const service = new UserService(entidade);
-//   const controller = new UsersController(service);
-//   return controller;
-// };
-// const loginController = new UsersController(new UserService(new RepositoryUsers()));
-// const matchesController = new MatchesController(new MatchesService(new RepositoryMatches()));
 
 class App {
   public app: express.Express;
@@ -38,10 +30,6 @@ class App {
     this.app.use('/teams', teamsRoute);
     this.app.use('/matches', matchesRoute);
     this.app.use('/leaderboard', matchesRoute);
-    // this.app.post('/matches', validationMiddleware, (req, res, next) => {
-    //   matchesController.create(req, res, next); });
-    // this.app.patch('/matches/:id/finish', (req, res, next) => {
-    //   matchesController.update(req, res, next)});
     this.app.use(errorMiddleware);
   }
 

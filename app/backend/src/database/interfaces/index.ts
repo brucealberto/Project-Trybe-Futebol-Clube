@@ -10,15 +10,15 @@ export interface IUsers {
 }
 
 export interface IMatchePoint {
-  homeTeamGoals : number
-  awayTeamGoals : number
+  homeTeamGoals: number;
+  awayTeamGoals: number;
 }
 
 export interface IHomeBoard {
-  teamName:string,
-  teamHome: IMatchePoint[]
-
+  teamName: string;
+  teamHome: IMatchePoint[];
 }
+
 export interface IUsersService {
   find(data: Omit<Users, 'id'>): Promise<Users>;
   // list(): Promise<Users[]>;
